@@ -100,7 +100,7 @@ cordova.plugins.playGamesServices.submitScore(data, function () {
 });
 ```
 
-#### Sumit Score Now
+#### Submit Score Now
 
 Ensure you have had a successful callback from `cordova.plugins.playGamesServices.auth()` first before attempting to submit a score. You should also have set up your leaderboard(s) in Google Play Game Console and use the leaderboard identifier assigned there as the `leaderboardId`.
 
