@@ -252,6 +252,40 @@ cordova.plugins.playGamesServices.showAchievements(function () {
     // On error
 });
 ```
+#### Reveal achievement
+
+Reveals a hidden achievement inmediately and waits for response:
+
+```js
+var data = {
+    achievementId: "achievementId1"
+};
+
+cordova.plugins.playGamesServices.revealAchievement(data, function () {
+    // On success
+}, function() {
+    // On error
+});
+```
+
+### Events
+
+#### Increment Event
+
+Increments the specified incremental event by the provided numSteps and waits for response
+
+```js
+var data = {
+    eventId: "eventId1",
+    numSteps: 1
+};
+
+cordova.plugins.playGamesServices.incrementEvent(data, function () {
+    // On success
+}, function() {
+    // On error
+});
+```
 
 ### Other
 
