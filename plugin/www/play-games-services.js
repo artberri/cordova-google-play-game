@@ -8,7 +8,7 @@ var PlayGamesServices = function () {
 var actions = ['auth', 'signOut', 'isSignedIn',
                'submitScore', 'submitScoreNow', 'getPlayerScore', 'showAllLeaderboards', 'showLeaderboard',
                'unlockAchievement', 'unlockAchievementNow', 'incrementAchievement', 'incrementAchievementNow',
-               'showAchievements', 'showPlayer'];
+               'showAchievements', 'showPlayer', 'revealAchievement', 'incrementEvent'];
 
 actions.forEach(function (action) {
     PlayGamesServices.prototype[action] = function (data, success, failure) {
