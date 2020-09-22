@@ -60,6 +60,10 @@ public class PlayGamesServices extends CordovaPlugin implements GameHelperListen
 
     private static final String ACTION_UNLOCK_ACHIEVEMENT = "unlockAchievement";
     private static final String ACTION_UNLOCK_ACHIEVEMENT_NOW = "unlockAchievementNow";
+
+    private static final String ACTION_REVEAL_ACHIEVEMENT = "revealAchievement";    
+    private static final String ACTION_INCREMENT_EVENT = "incrementEvent";
+
     private static final String ACTION_INCREMENT_ACHIEVEMENT = "incrementAchievement";
     private static final String ACTION_INCREMENT_ACHIEVEMENT_NOW = "incrementAchievementNow";
     private static final String ACTION_SHOW_ACHIEVEMENTS = "showAchievements";
@@ -138,6 +142,10 @@ public class PlayGamesServices extends CordovaPlugin implements GameHelperListen
             executeUnlockAchievement(options, callbackContext);
         } else if (ACTION_UNLOCK_ACHIEVEMENT_NOW.equals(action)) {
             executeUnlockAchievementNow(options, callbackContext);
+        } else if (ACTION_REVEAL_ACHIEVEMENT.equals(action)) {
+            executeRevealAchievement(options, callbackContext);
+        } else if (ACTION_INCREMENT_EVENT.equals(action)) {
+            executeIncrementEvent(options, callbackContext);
         } else if (ACTION_INCREMENT_ACHIEVEMENT.equals(action)) {
             executeIncrementAchievement(options, callbackContext);
         } else if (ACTION_INCREMENT_ACHIEVEMENT_NOW.equals(action)) {
@@ -404,7 +412,44 @@ public class PlayGamesServices extends CordovaPlugin implements GameHelperListen
             }
         });
     }
+    
+	private void executeRevealAchievement(final JSONObject options,final CallbackContext callbackContext) {
+        Log.d(LOGTAG, "executeRevealAchievement");
 
+        final PlayGamesServices plugin = this;
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (gameHelper.isSignedIn()) {
+                    Games.Achievements.reveal(gameHelper.getApiClient(),options.optString("achievementId"));                    
+                    callbackContext.success();
+                } else {
+                    Log.w(LOGTAG, "executeRevealAchievement: not yet signed in");
+                    callbackContext.error("executeRevealAchievement: not yet signed in");
+                }
+            }
+        });
+    }
+
+    private void executeIncrementEvent(final JSONObject options, final CallbackContext callbackContext) {
+        Log.d(LOGTAG, "executeIncrementEvent");
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (gameHelper.isSignedIn()) {
+                    Games.Events.increment(gameHelper.getApiClient(), options.optString("eventId"), options.optInt("numSteps"));
+                    callbackContext.success();
+                } else {
+                    Log.w(LOGTAG, "executeIncrementEvent: not yet signed in");
+                    callbackContext.error("executeIncrementEvent: not yet signed in");
+                }
+            }
+        });
+    }
+    
     private void executeIncrementAchievement(final JSONObject options, final CallbackContext callbackContext) {
         Log.d(LOGTAG, "executeIncrementAchievement");
 
@@ -455,7 +500,10 @@ public class PlayGamesServices extends CordovaPlugin implements GameHelperListen
             }
         });
     }
+	
 
+
+	
     private void executeShowAchievements(final CallbackContext callbackContext) {
         Log.d(LOGTAG, "executeShowAchievements");
 
