@@ -1,5 +1,11 @@
 # Cordova Plugin For Play Games Services
 
+> 📌 **Deprecation Notice**
+>
+> This repository is deprecated and no more work will be done on this by [Alberto Varela](https://github.com/artberri). The usage of this plugin is discouraged and any future issues will not be fixed by its current author.
+>
+> Feel free to fork this repository and improve your fork.
+
 Cordova Plugin For Google Play Games Services (Fork of [ptgamr/cordova-google-play-game](https://github.com/ptgamr/cordova-plugin-play-games-services))
 
 Modified to include the new Google Play Services (GoogleApiAvailability) and new methods for Leaderboards and Achievements.
@@ -31,11 +37,14 @@ cordova plugin add https://github.com/artberri/cordova-plugin-play-games-service
 You should do this as soon as your `deviceready` event has been fired. The plugin handles the various auth scenarios for you.
 
 ```js
-cordova.plugins.playGamesServices.auth(function() {
+cordova.plugins.playGamesServices.auth(
+  function () {
     // On logged in
-}, function() {
+  },
+  function () {
     // On not logged in
-});
+  }
+);
 ```
 
 #### Sign out
@@ -43,8 +52,8 @@ cordova.plugins.playGamesServices.auth(function() {
 You should provide the option for users to sign out
 
 ```js
-cordova.plugins.playGamesServices.signOut(function() {
-    // On logged out
+cordova.plugins.playGamesServices.signOut(function () {
+  // On logged out
 });
 ```
 
@@ -53,15 +62,18 @@ cordova.plugins.playGamesServices.signOut(function() {
 To check if the user is already logged in (eg. to determine weather to show the Log In or Log Out button), use the following
 
 ```js
-cordova.plugins.playGamesServices.isSignedIn(function (result) {
+cordova.plugins.playGamesServices.isSignedIn(
+  function (result) {
     // ‘result’ is the following object
     // {
     //         "isSignedIn": boolean
     // }
     console.log("Is user signed in: " + result.isSignedIn);
-}, function() {
+  },
+  function () {
     // On error: Auth check could not be done
-});
+  }
+);
 ```
 
 #### Player Information
@@ -70,15 +82,15 @@ Fetch the currently authenticated player's data.
 
 ```js
 cordova.plugins.playGamesServices.showPlayer(function (playerData) {
-    // playerData is the following object
-    // {
-    //      displayName: string;
-    //      playerId: string;
-    //      title: string;
-    //      iconImageUrl: string;
-    //      hiResIconImageUrl: string;
-    // }
-    console.log("Authenticated as " + playerData.displayName);
+  // playerData is the following object
+  // {
+  //      displayName: string;
+  //      playerId: string;
+  //      title: string;
+  //      iconImageUrl: string;
+  //      hiResIconImageUrl: string;
+  // }
+  console.log("Authenticated as " + playerData.displayName);
 });
 ```
 
@@ -90,14 +102,18 @@ Ensure you have had a successful callback from `cordova.plugins.playGamesService
 
 ```js
 var data = {
-    score: 10,
-    leaderboardId: "board1"
+  score: 10,
+  leaderboardId: "board1",
 };
-cordova.plugins.playGamesServices.submitScore(data, function () {
+cordova.plugins.playGamesServices.submitScore(
+  data,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Sumit Score Now
@@ -108,10 +124,12 @@ This method submit the score immediately and returns info.
 
 ```js
 var data = {
-    score: 10,
-    leaderboardId: "board1"
+  score: 10,
+  leaderboardId: "board1",
 };
-cordova.plugins.playGamesServices.submitScoreNow(data, function (result) {
+cordova.plugins.playGamesServices.submitScoreNow(
+  data,
+  function (result) {
     // ‘result’ is the following object
     // {
     //      leaderboardId: string;
@@ -122,9 +140,11 @@ cordova.plugins.playGamesServices.submitScoreNow(data, function (result) {
     //      scoreTag: string;
     // }
     console.log("Is this your best score: " + result.newBest);
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Get player's score
@@ -133,17 +153,21 @@ This method gets the score of a leaderboard.
 
 ```js
 var data = {
-    leaderboardId: "board1"
+  leaderboardId: "board1",
 };
-cordova.plugins.playGamesServices.getPlayerScore(data, function (result) {
+cordova.plugins.playGamesServices.getPlayerScore(
+  data,
+  function (result) {
     // ‘result’ is the following object
     // {
     //      playerScore: number;
     // }
     console.log("Is this your score: " + result.playerScore);
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Show all leaderboards
@@ -151,11 +175,14 @@ cordova.plugins.playGamesServices.getPlayerScore(data, function (result) {
 Launches the native Play Games leaderboard view controller to show all the leaderboards.
 
 ```js
-cordova.plugins.playGamesServices.showAllLeaderboards(function () {
+cordova.plugins.playGamesServices.showAllLeaderboards(
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Show specific leaderboard
@@ -164,13 +191,17 @@ Launches directly into the specified leaderboard:
 
 ```js
 var data = {
-    leaderboardId: "board1"
+  leaderboardId: "board1",
 };
-cordova.plugins.playGamesServices.showLeaderboard(leaderboardId, function () {
+cordova.plugins.playGamesServices.showLeaderboard(
+  leaderboardId,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 ### Achievements
@@ -181,14 +212,18 @@ Unlocks the specified achievement:
 
 ```js
 var data = {
-    achievementId: "achievementId1"
+  achievementId: "achievementId1",
 };
 
-cordova.plugins.playGamesServices.unlockAchievement(data, function () {
+cordova.plugins.playGamesServices.unlockAchievement(
+  data,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Unlock achievement Now
@@ -197,14 +232,18 @@ Unlocks the specified achievement inmediately and waits for response:
 
 ```js
 var data = {
-    achievementId: "achievementId1"
+  achievementId: "achievementId1",
 };
 
-cordova.plugins.playGamesServices.unlockAchievementNow(data, function () {
+cordova.plugins.playGamesServices.unlockAchievementNow(
+  data,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Increment achievement
@@ -213,15 +252,19 @@ Increments the specified incremental achievement by the provided numSteps:
 
 ```js
 var data = {
-    achievementId: "achievementId1",
-    numSteps: 1
+  achievementId: "achievementId1",
+  numSteps: 1,
 };
 
-cordova.plugins.playGamesServices.incrementAchievement(data, function () {
+cordova.plugins.playGamesServices.incrementAchievement(
+  data,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Increment achievement Now
@@ -230,15 +273,19 @@ Increments the specified incremental achievement by the provided numSteps and wa
 
 ```js
 var data = {
-    achievementId: "achievementId1",
-    numSteps: 1
+  achievementId: "achievementId1",
+  numSteps: 1,
 };
 
-cordova.plugins.playGamesServices.incrementAchievementNow(data, function () {
+cordova.plugins.playGamesServices.incrementAchievementNow(
+  data,
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 #### Show achievements
@@ -246,11 +293,14 @@ cordova.plugins.playGamesServices.incrementAchievementNow(data, function () {
 Launches the native Play Games achievements view controller to show the user’s achievements.
 
 ```js
-cordova.plugins.playGamesServices.showAchievements(function () {
+cordova.plugins.playGamesServices.showAchievements(
+  function () {
     // On success
-}, function() {
+  },
+  function () {
     // On error
-});
+  }
+);
 ```
 
 ### Other
